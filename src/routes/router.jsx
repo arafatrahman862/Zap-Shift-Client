@@ -14,7 +14,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'coverage',
-                Component: Covarage
+                Component: Covarage,
+                loader: () => fetch('/serviceCenter.json').then((res) => res.json())
             }
            
         ]
