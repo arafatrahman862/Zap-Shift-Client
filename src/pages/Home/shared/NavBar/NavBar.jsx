@@ -1,43 +1,105 @@
-import { NavLink } from "react-router";
+
+import { FiArrowRight, FiMenu } from "react-icons/fi";
 import Logo from "../../../../components/Logo/Logo";
+import { NavLink } from "react-router";
+
+const navItems = [
+    { name: "Services", path: "/services" },
+    { name: "Coverage", path: "/coverage" },
+    { name: "About Us", path: "/about_us" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" },
+   
+];
 
 const NavBar = () => {
-    const links = <>
-        <li>
-            
-                <li><NavLink to=""> Services</NavLink></li>
-                <li><NavLink to=""> Services</NavLink></li>
-                
-           
-        </li>
-    </>
     return (
-        <div className="navbar bg-base-100 shadow-sm">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+        <header className="sticky top-0 z-50 bg-transparent py-4">
+            <div className="mx-auto max-w-7xl px-4">
+                <div className="navbar rounded-full border border-white/20 bg-white/90 px-4 py-2 shadow-xl backdrop-blur-xl">
+
+                    {/* Logo */}
+                    <div className="navbar-start">
+                        {/* Mobile Menu */}
+                        <div className="dropdown lg:hidden">
+                            <label
+                                tabIndex={0}
+                                className="btn btn-circle btn-ghost"
+                            >
+                                <FiMenu size={22} />
+                            </label>
+
+                            <ul
+                                tabIndex={0}
+                                className="menu dropdown-content mt-4 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl"
+                            >
+                                {navItems.map((item) => (
+                                    <li key={item.path}>
+                                        <NavLink
+                                            to={item.path}
+                                            className={({ isActive }) =>
+                                                `rounded-xl py-3 font-medium transition-all ${isActive
+                                                    ? "bg-primary text-white"
+                                                    : "hover:bg-primary/10 hover:text-primary"
+                                                }`
+                                            }
+                                        >
+                                            {item.name}
+                                        </NavLink>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <Logo />
                     </div>
-                    <ul
-                        tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                       {links}
-                    </ul>
+
+                    {/* Desktop Menu */}
+                    <div className="navbar-center hidden lg:flex">
+                        <ul className="menu menu-horizontal gap-2 rounded-full bg-slate-100 p-2">
+
+                            {navItems.map((item) => (
+                                <li key={item.path}>
+                                    <NavLink
+                                        to={item.path}
+                                        className={({ isActive }) =>
+                                            `rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${isActive
+                                                ? "bg-primary text-white shadow-lg"
+                                                : "text-slate-700 hover:bg-primary/10 hover:text-primary"
+                                            }`
+                                        }
+                                    >
+                                        {item.name}
+                                    </NavLink>
+                                </li>
+                            ))}
+
+                        </ul>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="navbar-end">
+                        <button className="group btn rounded-full border-0 bg-primary px-6 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary">
+
+                            <span className="hidden sm:block">
+                                Book Delivery
+                            </span>
+
+                            <span className="sm:hidden">
+                                Book
+                            </span>
+
+                            <span className="ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover:rotate-45">
+                                <FiArrowRight />
+                            </span>
+
+                        </button>
+                    </div>
+
                 </div>
-               <div className="flex ">
-                
-                    <a className="btn btn-ghost text-xl"><Logo></Logo></a>
-               </div>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    {links}
-                </ul>
-            </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
-            </div>
-        </div>
+        </header>
     );
 };
 
